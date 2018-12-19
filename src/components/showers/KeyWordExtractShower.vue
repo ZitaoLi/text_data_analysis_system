@@ -2,7 +2,7 @@
   <div class="key-work-extract-shower">
     <ve-wordcloud 
       :data="chartData" 
-      v-if="words"></ve-wordcloud>
+      v-if="k_words"></ve-wordcloud>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 export default {
   name: 'KeyWrodExtractShower',
   props: {
-    words: Array
+    k_words: Array
   },
   data () {
     this.colors = ['#61a0a8']
@@ -19,10 +19,10 @@ export default {
     }
   },
   watch: {
-    words() {
+    k_words() {
       this.chartData = {
         columns: ['word', 'count'],
-        rows: this.words
+        rows: this.k_words
       }
     }
   }

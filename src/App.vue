@@ -8,11 +8,11 @@
           
           <el-submenu index="" style="float:right">
             <template slot="title">
-              <img class="user-header-circle images" src="@/assets/logo.png" alt="logo"/>
+              <img class="user-header-circle images" :src="user.userHeader" alt="logo"/>
             </template>
             <div style="padding: 10px; border-bottom: 1px solid #EBEEF5;">
-              <div style="font: 20px Extra large">USERNAME</div>
-              <div style="font: 12px Extra Small; color: #909399;">example@email.com</div>
+              <div style="font: 20px Extra large">{{ user.userName }}</div>
+              <div style="font: 12px Extra Small; color: #909399;">{{ user.email }}</div>
             </div>
             <el-menu-item index="/user" >
               <i class="el-icon-setting"></i>查看信息
@@ -66,6 +66,11 @@ export default {
   data() {
     return {
       activeIndex: '/',
+      user: {
+        userName: this.$store.getters.user.userName,
+        userHeader: this.$store.getters.user.userHeader ? this.$store.getters.user.userHeader : '/img/logo.png',
+        email: this.$store.getters.user.email
+      }
     };
   },
   methods: {

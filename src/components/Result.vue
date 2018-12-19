@@ -6,7 +6,7 @@
     <div class="shower">
       <word-split-shower v-if="type == 1"></word-split-shower>
       <word-freq-stat-shower v-if="type == 2" :f_words="f_words"></word-freq-stat-shower>
-      <key-word-extract-shower v-if="type == 3" :words="words"></key-word-extract-shower>
+      <key-word-extract-shower v-if="type == 3" :k_words="k_words"></key-word-extract-shower>
       <emotion-analysis-shower v-if="type == 4" :emotions="emotions"></emotion-analysis-shower>
       <score-shower v-if="type == 5"></score-shower>
     </div>
@@ -19,6 +19,11 @@ import KeyWordExtractShower from '@/components/showers/KeyWordExtractShower.vue'
 import ScoreShower from '@/components/showers/ScoreShower.vue'
 import WordFreqStatShower from '@/components/showers/WordFreqStatShower.vue'
 import WordSplitShower from '@/components/showers/WordSplitShower.vue'
+import WordPrefStatService from '@/services/WordPrefStatService'
+import EmotionAnalysisService from '@/services/EmotionAnalysisService'
+// import WordSplitService from '@/services/WordSplitService'
+// import ScoreService from '@/services/ScoreService'
+import KeyWordExtractService from '@/services/KeyWordExtractService'
 export default {
   name: 'Result',
   props: {
@@ -35,12 +40,20 @@ export default {
     return {
       progress: false,
       emotions: [],
-      words: [],
+      k_words: [],
       f_words: []
     }
   },
   methods: {
     handleClick() {
+      // this.axios.post('http://localhost:5000/key_word_extract_service')
+      // .then(function(response) {
+      //   console.log(response);
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
+
       this.progress = true;
       setTimeout(() => {
         this.progress = false;
@@ -50,29 +63,13 @@ export default {
         console.log(this.type);
       } else if (this.type == 2) {
         this.f_words = [];
-        this.f_words = [
-          { word: 'hello', count: 3 }, 
-          { word: 'word', count: 21 }, 
-          { word: '!', count: 10 },
-          { word: '66', count: 56 },
-          { word: 'h', count: 11 },
-          { word: 'gg', count: 23 },
-        ];
+        this.f_words = WordPrefStatService.getData();
       } else if (this.type == 3) {
-        this.words = [];
-        this.words = [
-          { word: 'visualMap', count: 2 }, 
-          { word: 'continuous', count: 1 }, 
-          { word: 'contoller', count: 1 }
-        ];
+        this.k_words = [];
+        this.k_words = KeyWordExtractService.getData();
       } else if (this.type == 4) {
         this.emotions = [];
-        this.emotions = [ 
-          { id: '1', content: 'this is fuker', type: 1 },
-          { id: '2', content: 'this is shiter', type: 0 },
-          { id: '3', content: 'this is damner', type: 1 }, 
-          { id: '4', content: 'this is dogger', type: 1 }, 
-        ];
+        this.emotions = EmotionAnalysisService.getData();
       }  else if (this.type == 5) {
         console.log(this.type);
       } else {
