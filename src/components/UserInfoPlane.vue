@@ -6,7 +6,7 @@
       <div class="text item">e-mail</div>
       <div class="text item">type: free</div>
       <br>
-      <el-menu default-active="user-info" class="el-menu-vertical-demo">
+      <el-menu default-active="user-info" class="el-menu-vertical-demo" style="border-right-width: 0px;">
         <el-menu-item index="user-info" @click="routeTo('/user-info')" ref="userInfo">
           <i class="el-icon-menu"></i>
           <span slot="title">账户信息</span>
@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .text {
   font-size: 14px;
 }

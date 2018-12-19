@@ -1,10 +1,10 @@
 <template>
   <div class="pay" style="width: 1024px; margin-right: auto; margin-left: auto;">
     <el-container>
-      <el-aside width="215px">
+      <el-aside style="margin-top: 20px; width: 215px;">
         <user-info-plane @route="route" />
       </el-aside>
-      <el-main>
+      <el-main style="margin-left: 20px;">
         <router-view></router-view>
       </el-main>
     </el-container>

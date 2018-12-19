@@ -12,7 +12,7 @@
                 <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
               </el-upload>
               </el-tab-pane>
-              <el-tab-pane label="Text Upload" index="2">
+              <el-tab-pane class="upload-demo" label="Text Upload" index="2">
                 <el-input
                   type="textarea"
                   :rows="8"
@@ -23,19 +23,12 @@
             </el-tabs>
           </div>
           <div>
-            <!-- <el-row>
-              <el-col :span="3"><el-button class="grid-content">默认按钮</el-button></el-col>
-              <el-col :span="3"><el-button style="height: 100px; width: 100%">默认按钮</el-button></el-col>
-              <el-col :span="3"><el-button>默认按钮</el-button></el-col>
-              <el-col :span="3"><el-button>默认按钮</el-button></el-col>
-              <el-col :span="3"><el-button>默认按钮</el-button></el-col>
-            </el-row> -->
-            <el-tabs type="card">
-              <el-tab-pane label="分词"><result title="分词"></result></el-tab-pane>
-              <el-tab-pane label="词频统计"><result title="词频统计"></result></el-tab-pane>
-              <el-tab-pane label="关键字提取"><result title="关键字提取"></result></el-tab-pane>
-              <el-tab-pane label="情感分析"><result title="情感分析"></result></el-tab-pane>
-              <el-tab-pane label="评分"><result title="评分"></result></el-tab-pane>
+            <el-tabs type="card" @tab-click="handleClick">
+              <el-tab-pane label="分词" name="1"><result type="1"></result></el-tab-pane>
+              <el-tab-pane label="词频统计" name="2"><result type="2"></result></el-tab-pane>
+              <el-tab-pane label="关键字提取" name="3"><result type="3"></result></el-tab-pane>
+              <el-tab-pane label="情感分析" name="4"><result type="4"></result></el-tab-pane>
+              <el-tab-pane label="评分" name="5"><result type="5"></result></el-tab-pane>
             </el-tabs>
           </div>
         </el-col>
@@ -54,12 +47,17 @@ export default {
   },
   components: {
     Result
+  },
+  methods: {
+    handleClick(e) {
+      console.log(e.name);
+    }
   }
 }
 </script>
 
 <style>
-/* .upload-demo {
-  background-color: gray;
-} */
+.upload-demo {
+  margin-top: 22px;
+}
 </style>

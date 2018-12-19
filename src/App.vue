@@ -3,18 +3,28 @@
     <el-container>
       <el-header>
         <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-          <el-menu-item index="" disabled>LOGO</el-menu-item>
+          <el-menu-item index="">TEXT DATA Cloud</el-menu-item>
           <el-menu-item index="/" >处理中心</el-menu-item>
+          
           <el-submenu index="" style="float:right">
-            <template slot="title">用户中心</template>
-            <el-menu-item index="/user" >查看信息</el-menu-item>
-            <el-menu-item index="/pay-center">充值中心</el-menu-item>
+            <template slot="title">
+              <img class="user-header-circle images" src="@/assets/logo.png" alt="logo"/>
+            </template>
+            <div style="padding: 10px; border-bottom: 1px solid #EBEEF5;">
+              <div style="font: 20px Extra large">USERNAME</div>
+              <div style="font: 12px Extra Small; color: #909399;">example@email.com</div>
+            </div>
+            <el-menu-item index="/user" >
+              <i class="el-icon-setting"></i>查看信息
+            </el-menu-item>
+            <el-menu-item index="/pay-center"><i class="el-icon-goods"></i>充值中心</el-menu-item>
+            <el-menu-item index=""><i class="el-icon-circle-close-outline"></i>退出登录</el-menu-item>
           </el-submenu>
           <el-menu-item index="/sign-in" style="float:right;">登录</el-menu-item>
         </el-menu>
       </el-header>
 
-      <el-main>
+      <el-main style="min-height: 800px;">
         <router-view></router-view>
       </el-main>
 
@@ -43,6 +53,11 @@
       color: #42b983;
     }
   }
+}
+.user-header-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
 </style>
 
