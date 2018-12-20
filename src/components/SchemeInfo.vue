@@ -5,13 +5,13 @@
       <el-col :span=" 8">
         <el-card shadow="never">
           <div class="card-inner-1">方案类型</div>
-          <div class="card-inner-2">{{ scheme.type }}</div>
+          <div class="card-inner-2">{{ scheme.type ? '免费版' : '付费版' }}</div>
         </el-card>
       </el-col>
       <el-col :span="8">
         <el-card shadow="never">
           <div class="card-inner-1">购买方案</div>
-          <div class="card-inner-2">{{ scheme.bought ? '免费试用' : '付费使用' }}</div>
+          <div class="card-inner-2">{{ scheme.type ? '免费试用' : '付费使用' }}</div>
         </el-card>
       </el-col>
       <el-col :span="8">
@@ -27,14 +27,17 @@
 <script>
 export default {
   name: 'SchemeInfo',
-  data() {
-    return {
-      scheme: {
-        type: '免费版',
-        bought: 'false',
-        expireDate: '2019-01-05',
-      }
-    }
+  // data() {
+  //   return {
+  //     scheme: {
+  //       type: '免费版',
+  //       bought: 'false',
+  //       expireDate: '2019-01-05',
+  //     }
+  //   }
+  // },
+  props: {
+    scheme: Object
   }
 }
 </script>

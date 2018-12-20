@@ -2,7 +2,7 @@
   <div class="pay" style="width: 1024px; margin-right: auto; margin-left: auto;">
     <el-container>
       <el-aside style="margin-top: 20px; width: 215px;">
-        <user-info-plane @route="route" />
+        <user-info-plane :user="user" @route="route" />
       </el-aside>
       <el-main style="margin-left: 20px;">
         <router-view></router-view>
@@ -14,6 +14,11 @@
 <script>
 import UserInfoPlane from '@/components/UserInfoPlane.vue'
 export default {
+  data() {
+    return {
+      user: {},
+    }
+  },
   methods: {
     route(data) {
       console.log(data);
@@ -22,6 +27,11 @@ export default {
   },
   components: {
     UserInfoPlane,
+  },
+  created() {
+    // TODO: fetch user infomation
+    let user = { userName: 'test', email: 'test@email.com' };
+    this.user = user;
   }
 }
 </script>

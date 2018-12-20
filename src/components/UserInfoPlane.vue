@@ -1,10 +1,9 @@
 <template>
   <div class="user-info-plane">
     <el-card :body-style="{ padding: '0px', paddingBottom: '10px' }" class="box-card">
-      <img src="@/assets/logo.png" class="image">
-      <div class="text item">username</div>
-      <div class="text item">e-mail</div>
-      <div class="text item">type: free</div>
+      <img :src="user.userHeader ? 'user.userHeader' : '/img/logo.jpg'" class="image" style="max-width: 215px;">
+      <div class="text-name item">{{ user.userName }}</div>
+      <div class="text-email item">{{ user.email }}</div>
       <br>
       <el-menu default-active="user-info" class="el-menu-vertical-demo" style="border-right-width: 0px;">
         <el-menu-item index="user-info" @click="routeTo('/user-info')" ref="userInfo">
@@ -23,12 +22,15 @@
 <script>
 export default {
   name: 'UserInfoPlane',
+  props: {
+    user: Object
+  },
   data() {
     return {
       routePaths: [
         '/user-info',
         '/user-setting',
-      ]
+      ],
     }
   },
   mounted() {
@@ -44,14 +46,20 @@ export default {
 </script>
 
 <style scoped>
-.text {
-  font-size: 14px;
+.text-name {
+  font: 18px large;
+  color: #303133;
 }
-
+.text-email {
+  font: 12px Extra Extra Small;
+  color: #C0C4CC;
+}
 .item {
   margin-bottom: 2px;
 }
-
+.image {
+  margin-bottom: 22px;
+}
 .clearfix:before,
 .clearfix:after {
   display: table;

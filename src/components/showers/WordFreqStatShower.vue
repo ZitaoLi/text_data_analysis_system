@@ -23,7 +23,7 @@ export default {
     }
   },
   watch: {
-    f_words() {
+    f_words(val) {
       this.extend = {
         series: {
           label: { show: true, position: "right" }
@@ -39,7 +39,7 @@ export default {
       }
       this.chartData = {
         columns: ['word', 'count'],
-        rows: this.f_words
+        rows: val
       }
     }
   }

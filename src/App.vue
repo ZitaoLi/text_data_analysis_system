@@ -2,11 +2,10 @@
   <div id="app">
     <el-container>
       <el-header>
-        <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal" @select="handleSelect" ref="nav">
           <el-menu-item index="">TEXT DATA Cloud</el-menu-item>
-          <el-menu-item index="/" >处理中心</el-menu-item>
-          
-          <el-submenu index="" style="float:right">
+          <el-menu-item index="/">处理中心</el-menu-item>
+          <el-submenu index="" style="float:right" v-if="logined">
             <template slot="title">
               <img class="user-header-circle images" :src="user.userHeader" alt="logo"/>
             </template>
@@ -18,9 +17,9 @@
               <i class="el-icon-setting"></i>查看信息
             </el-menu-item>
             <el-menu-item index="/pay-center"><i class="el-icon-goods"></i>充值中心</el-menu-item>
-            <el-menu-item index=""><i class="el-icon-circle-close-outline"></i>退出登录</el-menu-item>
+            <el-menu-item index="" @click="logout"><i class="el-icon-circle-close-outline"></i>退出登录</el-menu-item>
           </el-submenu>
-          <el-menu-item index="/sign-in" style="float:right;">登录</el-menu-item>
+          <el-menu-item index="/sign-in" style="float:right;" v-if="!logined">登录</el-menu-item>
         </el-menu>
       </el-header>
 
@@ -54,6 +53,9 @@
     }
   }
 }
+</style>
+
+<style scoped>
 .user-header-circle {
   width: 32px;
   height: 32px;
@@ -68,14 +70,36 @@ export default {
       activeIndex: '/',
       user: {
         userName: this.$store.getters.user.userName,
-        userHeader: this.$store.getters.user.userHeader ? this.$store.getters.user.userHeader : '/img/logo.png',
+        userHeader: this.$store.getters.user.userHeader ? this.$store.getters.user.userHeader : '/img/logo.jpg',
         email: this.$store.getters.user.email
       }
     };
   },
+  computed: {
+    logined: {
+      get() {
+        return this.$store.getters.logined;
+      },
+      set(val) {
+        if (val == false) this.$store.commit('logout');
+      }
+    }
+  },
+  watch: {
+    logined(val) {
+      console.log(val);
+    },
+    activeIndex(val) {
+      console.log(val);
+    }
+  },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath)
+      console.log(key, keyPath);
+    },
+    logout() {
+      this.logined = false;
+      this.$router.push('/');
     }
   }
 }

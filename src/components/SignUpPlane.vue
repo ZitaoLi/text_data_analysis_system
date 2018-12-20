@@ -1,7 +1,7 @@
 <template>
   <div class="sign-up-plane">
     <el-card class="box-card" shadow="hover">
-      <img class="circile-img" src="@/assets/logo.png" alt="logo"/>
+      <img class="circile-img" src="@/assets/logo.jpg" alt="logo"/>
       <el-form ref="form" :model="form" label-width="0px" class="form-group">
         <el-form-item label="">
           <el-input

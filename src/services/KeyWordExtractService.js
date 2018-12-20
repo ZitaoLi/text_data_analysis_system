@@ -1,6 +1,6 @@
 import axios from 'axios'
-
-var getData = function() {
+/* eslint-disable */
+var getData = function(data, state) {
   // var data = [
   //   { word: 'visualMap', count: 2 }, 
   //   { word: 'continuous', count: 2 }, 
@@ -10,13 +10,13 @@ var getData = function() {
   // ];
   // return data;
   axios.post('http://localhost:5000/key_word_extract_service')
-  .then(function(response) {
-    console.log(response);
-    return response.data;
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .then((response) => {
+      data = response.data;
+      state = false;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 const name = 'KeyWordExtractService';

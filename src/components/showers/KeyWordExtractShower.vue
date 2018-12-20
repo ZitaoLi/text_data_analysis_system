@@ -1,8 +1,6 @@
 <template>
-  <div class="key-work-extract-shower">
-    <ve-wordcloud 
-      :data="chartData" 
-      v-if="k_words"></ve-wordcloud>
+  <div class="key-work-extract-shower" ref="demo">
+    <ve-wordcloud :data="chartData" :events="chartEvents"></ve-wordcloud>
   </div>
 </template>
 
@@ -13,18 +11,29 @@ export default {
     k_words: Array
   },
   data () {
-    this.colors = ['#61a0a8']
     return {
-      chartData: {}
+      colors: ['#61a0a8'],
+      chartData: {
+        columns: ['word', 'count'],
+        rows: []
+      },
+      chartEvents: {
+        click: function(e) {
+          console.log(e);
+        }
+      }
     }
   },
   watch: {
-    k_words() {
-      this.chartData = {
-        columns: ['word', 'count'],
-        rows: this.k_words
-      }
+    k_words(val) {
+     this.chartData.rows = val;
     }
+  },
+  mounted() {
+    console.log('KeyWrodExtractShower');
+  },
+  destroyed() {
+    console.log('KeyWrodExtractShower destroyed');
   }
 }
 </script>

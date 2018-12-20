@@ -5,10 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    logined: false,
+    host: {
+      root: 'http://192.168.1.119:5000'
+    },
     user: {
       token: '',
-      identitiy: 'visitor',
-      userName: 'USER',
+      identity: 'visitor',
+      userName: '已注销',
       userHeader: '',
       email: 'example@email/com',
       wechat: '',
@@ -22,15 +26,39 @@ export default new Vuex.Store({
     scheme: {
       type: 'free',
       expireDate: ''
+    },
+    usecase: {
+      wordSplit: { type: 1, times: 3 },
+      wordFreqStat: { type: 2, times: 3 },
+      keyWordExtract: { type: 3, times: 3 },
+      emotionAnalysis: { type: 4, times: 3 },
+      scorce: { type: 5, times: 3 },
     }
   },
   mutations: {
-
+    login(state, user) {
+      state.logined = true;
+      console.log(user);
+      state.user.token = user.token
+      state.user.userName = user.userName;
+      state.user.userHeader = user.userHeader;
+      state.user.identity = user.identity;
+    },
+    logout(state) {
+      state.logined = false;
+      state.user.identity = 'visitor';
+    }
   },
   actions: {
 
   },
   getters: {
+    logined(state) {
+      return state.logined;
+    },
+    host(state) {
+      return state.host;
+    },
     user(state) {
       return state.user;
     },

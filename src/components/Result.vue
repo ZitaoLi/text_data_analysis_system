@@ -8,22 +8,23 @@
       <word-freq-stat-shower v-if="type == 2" :f_words="f_words"></word-freq-stat-shower>
       <key-word-extract-shower v-if="type == 3" :k_words="k_words"></key-word-extract-shower>
       <emotion-analysis-shower v-if="type == 4" :emotions="emotions"></emotion-analysis-shower>
-      <score-shower v-if="type == 5"></score-shower>
+      <score-shower v-if="type == 5" :scores="scores"></score-shower>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import EmotionAnalysisShower from '@/components/showers/EmotionAnalysisShower.vue'
 import KeyWordExtractShower from '@/components/showers/KeyWordExtractShower.vue'
 import ScoreShower from '@/components/showers/ScoreShower.vue'
 import WordFreqStatShower from '@/components/showers/WordFreqStatShower.vue'
 import WordSplitShower from '@/components/showers/WordSplitShower.vue'
-import WordPrefStatService from '@/services/WordPrefStatService'
-import EmotionAnalysisService from '@/services/EmotionAnalysisService'
+// import WordPrefStatService from '@/services/WordPrefStatService'
+// import EmotionAnalysisService from '@/services/EmotionAnalysisService'
 // import WordSplitService from '@/services/WordSplitService'
 // import ScoreService from '@/services/ScoreService'
-import KeyWordExtractService from '@/services/KeyWordExtractService'
+// import KeyWordExtractService from '@/services/KeyWordExtractService'
 export default {
   name: 'Result',
   props: {
@@ -38,38 +39,57 @@ export default {
   },
   data() {
     return {
+      root: this.$store.getters.host.root,
       progress: false,
       emotions: [],
       k_words: [],
-      f_words: []
+      f_words: [],
+      s_words: [],
+      scores: []
     }
+  },
+  mounted() {
+    console.log(this.type);
   },
   methods: {
     handleClick() {
-      // this.axios.post('http://localhost:5000/key_word_extract_service')
-      // .then(function(response) {
-      //   console.log(response);
-      // })
-      // .catch(function (error) {
-      //   console.log(error);
-      // });
-
       this.progress = true;
-      setTimeout(() => {
-        this.progress = false;
-      }, 1000);
-
+      // setTimeout(() => {
+      //   this.progress = false;
+      // }, 1000);
+      console.log(this.$el.childNodes);
       if (this.type == 1) {
         console.log(this.type);
       } else if (this.type == 2) {
-        this.f_words = [];
-        this.f_words = WordPrefStatService.getData();
+        this.axios.post('/word_freq_stat_service')
+          .then((response) => {
+            console.log(response);
+            this.f_words = response.data;
+            this.progress = false;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else if (this.type == 3) {
-        this.k_words = [];
-        this.k_words = KeyWordExtractService.getData();
+        this.axios.post('/key_word_extract_service')
+          .then((response) => {
+            console.log(response);
+            this.k_words = response.data;
+            this.progress = false;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else if (this.type == 4) {
-        this.emotions = [];
-        this.emotions = EmotionAnalysisService.getData();
+        this.axios.post('/emotion_analysis_service')
+          .then((response) => {
+            console.log(response);
+            this.emotions = response.data;
+            this.progress = false;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }  else if (this.type == 5) {
         console.log(this.type);
       } else {
