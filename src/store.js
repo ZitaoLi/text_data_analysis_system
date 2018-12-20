@@ -7,14 +7,14 @@ export default new Vuex.Store({
   state: {
     logined: false,
     host: {
-      root: 'http://192.168.1.119:5000'
+      root: 'http://192.168.1.233:5000'
     },
     user: {
       token: '',
       identity: 'visitor',
-      userName: '已注销',
+      userName: '',
       userHeader: '',
-      email: 'example@email/com',
+      email: '',
       wechat: '',
       phone: '',
       profile: '',
@@ -43,6 +43,7 @@ export default new Vuex.Store({
       state.user.userName = user.userName;
       state.user.userHeader = user.userHeader;
       state.user.identity = user.identity;
+      state.user.email = user.email;
     },
     logout(state) {
       state.logined = false;

@@ -52,7 +52,7 @@ export default {
           console.log(response);
           // TODO: 缓存token
           // TODO: 重定向到主页，隐藏登录按钮
-          this.$store.commit('login', { token: '', userName: 'lztao', userHeader: '', identity: 'vip-user' });
+          this.$store.commit('login', { token: '', userName: 'lztao', userHeader: '', identity: 'vip-user', email: 'lztao@email.com' });
           this.$router.push('/');
         }).catch((error) => {
           console.log(error);
