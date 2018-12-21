@@ -103,6 +103,23 @@ export default {
       console.log(val);
     }
   },
+  created() {
+    var token = localStorage.getItem('token');
+    var userName = localStorage.getItem('userName');
+    var userHeader = localStorage.getItem('userHeader');
+    var identity = localStorage.getItem('identity');
+    var email = localStorage.getItem('email');
+    if (token) {
+      this.logined = true;
+      this.$store.commit('login', {
+        token: token,
+        userName: userName,
+        userHeader: userHeader,
+        identity: identity,
+        email: email
+      });
+    }
+  },
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
@@ -110,6 +127,7 @@ export default {
     logout() {
       this.logined = false;
       this.$router.push('/');
+      localStorage.clear();
     }
   }
 }

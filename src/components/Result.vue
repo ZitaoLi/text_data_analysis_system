@@ -29,6 +29,7 @@ export default {
   name: 'Result',
   props: {
     type: String,
+    textInput: String
   },
   components: {
     EmotionAnalysisShower,
@@ -39,7 +40,7 @@ export default {
   },
   data() {
     return {
-      root: this.$store.getters.host.root,
+      commnets: [],
       progress: false,
       emotions: [],
       k_words: [],
@@ -53,11 +54,8 @@ export default {
   },
   methods: {
     handleClick() {
+      this.comments = preHandleComments(this.textInput);
       this.progress = true;
-      // setTimeout(() => {
-      //   this.progress = false;
-      // }, 1000);
-      console.log(this.$el.childNodes);
       if (this.type == 1) {
         console.log(this.type);
       } else if (this.type == 2) {
@@ -71,9 +69,9 @@ export default {
             console.log(error);
           });
       } else if (this.type == 3) {
-        this.axios.post('/key_word_extract_service')
+        this.axios.post('/comment_analysis/extractKeyWord')
           .then((response) => {
-            console.log(response);
+            console.log(response.data);
             this.k_words = response.data;
             this.progress = false;
           })
@@ -81,9 +79,14 @@ export default {
             console.log(error);
           });
       } else if (this.type == 4) {
-        this.axios.post('/emotion_analysis_service')
+        this.axios.post('/comment_analysis/classification', this.comments, {
+          headers: {
+            'Content-Type':'application/json',
+            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+          }
+        })
           .then((response) => {
-            console.log(response);
+            console.log(response.data);
             this.emotions = response.data;
             this.progress = false;
           })
@@ -97,6 +100,14 @@ export default {
       }
     }
   }
+}
+function preHandleComments(str) {
+  var lines = str.split(/[\n]/); // 按换行符分割
+  var comments = []
+  for (let i = 0; i < lines.length; i++) {
+    comments.push({ 'comment': lines[i] });
+  }
+  return comments;
 }
 </script>
 

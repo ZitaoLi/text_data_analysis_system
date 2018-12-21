@@ -26,7 +26,13 @@ export default {
   },
   watch: {
     k_words(val) {
-     this.chartData.rows = val;
+    //  this.chartData.rows = val;
+     var data = [];
+     for (let i = 0; i < val.length; i++) {
+       data.push({word: val[i], count: 1});
+      //  Math.round(Math.random() + 1)
+     }
+     this.chartData.rows = data;
     }
   },
   mounted() {

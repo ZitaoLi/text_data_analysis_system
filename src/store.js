@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     logined: false,
     host: {
-      root: 'http://192.168.1.233:5000'
+      root: 'http://192.168.1.119:5000',
+      testRoot: 'http://192.168.1.131:8088'
     },
     user: {
       token: '',
@@ -24,7 +25,7 @@ export default new Vuex.Store({
       birthdate: '',
     },
     scheme: {
-      type: 'free',
+      type: '0',
       expireDate: ''
     },
     usecase: {
@@ -38,7 +39,6 @@ export default new Vuex.Store({
   mutations: {
     login(state, user) {
       state.logined = true;
-      console.log(user);
       state.user.token = user.token
       state.user.userName = user.userName;
       state.user.userHeader = user.userHeader;
@@ -48,6 +48,9 @@ export default new Vuex.Store({
     logout(state) {
       state.logined = false;
       state.user.identity = 'visitor';
+    },
+    cacheToken(state, token) {
+      state.user.token = token;
     }
   },
   actions: {

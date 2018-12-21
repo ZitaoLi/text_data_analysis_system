@@ -2,12 +2,9 @@
   <div class="motion-analysis-shower">
     <el-table v-if="emotions" :data="emotions" style="width: 100%" 
       :row-class-name="tableRowClassName">
-      <el-table-column prop="id" label="#" width="50px">
-      </el-table-column>
-      <el-table-column prop="content" label="评论内容" :show-overflow-tooltip="true">
-      </el-table-column>
-      <el-table-column prop="type" label="类型" width="100px" :formatter="test">
-      </el-table-column>
+      <el-table-column type="index" width="50"></el-table-column>
+      <el-table-column prop="comment" label="评论内容" :show-overflow-tooltip="true"></el-table-column>
+      <el-table-column prop="kind" label="类型" width="100px" :formatter="test"></el-table-column>
     </el-table>
   </div>
 </template>
@@ -31,7 +28,7 @@ export default {
   methods: {
     /* eslint-disable */
     tableRowClassName({row, rowIndex}) {
-      if (row.type === 1) {
+      if (row.kind === 0) {
         return 'positive-row';
       } else {
         return 'nagetive-row';
@@ -39,7 +36,7 @@ export default {
     },
     /* eslint-disable */
     test(row, column, cellValue, index) {
-      if (cellValue == 1) {
+      if (cellValue == 0) {
         return 'positive';
       } else {
         return 'negative';

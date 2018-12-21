@@ -5,6 +5,7 @@
           <div style="margin-bottom: 50px;">
             <h1 class="title">{{ title }}</h1>
             <div class="tip">请在下方选择输入数据的方式</div>
+            <el-alert title="不同的影评之间使用换行符分隔" type="info"></el-alert>
             <el-tabs :default-active="1">
               <el-tab-pane label=文件上传 index="1">
                 <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple>
@@ -18,7 +19,7 @@
                   type="textarea"
                   :rows="8"
                   placeholder="请输入内容"
-                  v-model="textarea">
+                  v-model="textInput">
                 </el-input>
               </el-tab-pane>
             </el-tabs>
@@ -32,7 +33,7 @@
               <el-tab-pane label="情感分析" name="4" v-if="functionsVector[3]"></el-tab-pane>
               <el-tab-pane label="评分" name="5" v-if="functionsVector[4]"></el-tab-pane>
             </el-tabs>
-            <result :type="handleType" v-if="handleType"></result>
+            <result :type="handleType" :textInput="textInput" v-if="handleType"></result>
           </div>
         </el-col>
     </el-row>
@@ -44,7 +45,8 @@ import Result from '@/components/Result.vue'
 export default {
   data() {
     return {
-      textarea: '',
+      text: '',
+      textInput: '真好看\n真难看\n炸了炸了\n令人窒息的操作\n嘤嘤嘤',
       title: '影评数据分析系统',
       handleType: '',
       functionsVector: [ 0, 0, 1, 1, 1 ],
@@ -72,6 +74,11 @@ export default {
     handleClick(e) {
       console.log(e.name);
       this.handleType = e.name;
+    },
+    test() {
+      console.log(this.comments);
+      var parts = this.comments.split(/[\n]/); // 按换行符分割
+      console.log(parts);
     }
   }
 }

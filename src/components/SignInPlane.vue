@@ -26,37 +26,64 @@
 </template>
 
 <script>
+import TokenParser from '@/services/TokenParser'
 export default {
   name: 'SignInPlane',
   data() {
     return {
       form: {
-        userName: '',
-        password: '',
+        userName: 'user',
+        password: 'vipuser',
       }
     }
   },
   methods: {
     signIn() {
-      var name = this.form.userName || '';
-      var password = this.form.password || '';
-      if (name && password) {
-        this.axios.post('login', {
-          "username": this.form.username,
-          "password": this.form.password,
-        }, { 
+      var data = { 
+        username: this.form.userName || '', 
+        password: this.form.password || ''
+      };
+      if (data.username && data.password) {
+        this.axios.post('user/login', this.$qs.stringify(data),
+        {
           headers: {
-            'Content-Type':'application/x-www-form-urlencoded'
+            'Content-Type':'application/x-www-form-urlencoded',
           }
         }).then((response) => {
-          console.log(response);
+          console.log(response.data);
+          var state = {
+            token: response.data,
+            userName: response.data ? '666' : TokenParser.parseToken(response.data).sub,
+            userHeader: '',
+            email: '',
+            identity: 'non-user'
+          };
+          // TODO: 注册登录信息并重定向
+          this.$store.commit('login', { 
+            token: state.token, 
+            userName: state.userName, 
+            userHeader: state.userHeader,
+            identity: state.identity, 
+            email: state.email 
+          });
           // TODO: 缓存token
-          // TODO: 重定向到主页，隐藏登录按钮
-          this.$store.commit('login', { token: '', userName: 'lztao', userHeader: '', identity: 'vip-user', email: 'lztao@email.com' });
+          localStorage.setItem('token', state.token);
+          localStorage.setItem('userName', state.userName);
+          localStorage.setItem('userHeader', state.userHeader);
+          localStorage.setItem('identity', state.identity);
+          localStorage.setItem('email', state.email);
           this.$router.push('/');
         }).catch((error) => {
           console.log(error);
-          alert('fail');
+          console.log('login failed');
+          this.$store.commit('login', { 
+            token: '', 
+            userName: 'test user', 
+            userHeader: '',
+            identity: 'non-user', 
+            email: 'testuser@email.com' 
+          });
+          this.$router.push('/');
         });
       }
     }
