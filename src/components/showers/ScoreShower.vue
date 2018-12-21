@@ -2,15 +2,14 @@
   <div class="score-shower">
     <el-table v-if="score" :data="score" style="width: 100%" 
       :row-class-name="tableRowClassName">
-      <el-table-column prop="id" label="#" width="50px">
+      <el-table-column type="index" width="50"></el-table-column>
+      <el-table-column prop="comment" label="评论内容" :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column prop="content" label="评论内容" :show-overflow-tooltip="true">
-      </el-table-column>
-      <el-table-column label="评分" width="200px">
+      <el-table-column label="评分" width="200px" prop="star">
         <template slot-scope="scope">
           <el-rate 
             :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-            v-model="value4"
+            v-model="scope.row.star"
             disabled
             show-score
             text-color="#ff9900"
@@ -28,11 +27,10 @@ export default {
   data() {
     return {
       score: [
-        { id: 1, content: 'this is a goood movie', star: 1.4 },
-        { id: 1, content: 'this is a goood movie', star: 2.5 },
-        { id: 1, content: 'this is a goood movie', star: 4.6 },
-      ],
-      value4: 1.4
+        { comment: 'this is a goood movie', star: 1.4 },
+        { comment: 'this is a goood movie', star: 2.5 },
+        { comment: 'this is a goood movie', star: 4.6 },
+      ]
     }
   },
   props: {
