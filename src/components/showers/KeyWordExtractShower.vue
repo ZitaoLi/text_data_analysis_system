@@ -1,6 +1,6 @@
 <template>
   <div class="key-work-extract-shower" ref="demo">
-    <ve-wordcloud :data="chartData" :events="chartEvents"></ve-wordcloud>
+    <ve-wordcloud height="300px" :data="chartData" :events="chartEvents"></ve-wordcloud>
   </div>
 </template>
 

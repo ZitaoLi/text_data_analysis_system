@@ -1,15 +1,15 @@
 <template>
   <div class="score-shower">
-    <el-table v-if="score" :data="score" style="width: 100%" 
+    <el-table v-if="scores" :data="scores" style="width: 100%" 
       :row-class-name="tableRowClassName">
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column prop="comment" label="评论内容" :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column label="评分" width="200px" prop="star">
+      <el-table-column label="评分" width="200px" prop="score">
         <template slot-scope="scope">
           <el-rate 
             :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-            v-model="scope.row.star"
+            v-model.number="scope.row.score"
             disabled
             show-score
             text-color="#ff9900"
@@ -27,14 +27,24 @@ export default {
   data() {
     return {
       score: [
-        { comment: 'this is a goood movie', star: 1.4 },
-        { comment: 'this is a goood movie', star: 2.5 },
-        { comment: 'this is a goood movie', star: 4.6 },
+        { comment: 'this is a goood movie', score: 1.4 },
+        { comment: 'this is a goood movie', score: 2.5 },
+        { comment: 'this is a goood movie', score: 4.6 },
       ]
     }
   },
   props: {
     scores: Array
+  },
+  watch: {
+    scores(val) {
+      val.map((item) => {
+        if (typeof item.score == 'string') {
+          item.score = parseFloat(item.score);
+        }
+      });
+      console.log(val);
+    }
   },
   methods: {
     /* eslint-disable */

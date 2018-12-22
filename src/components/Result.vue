@@ -1,10 +1,11 @@
 <template>
   <div class="result">
     <div class="run-btn-outer">
-      <el-button id="run-btn" :loading="progress" @click="handleClick">Run</el-button>
+      <el-button id="run-btn" :loading="progress" @click="handleClick">运行</el-button>
+      <el-button id="run-btn" :loading="progress" v-if="show_download">下载</el-button>
     </div>
     <div class="shower">
-      <word-split-shower v-if="type == 1"></word-split-shower>
+      <word-split-shower v-if="type == 1" :s_words="s_words"></word-split-shower>
       <word-freq-stat-shower v-if="type == 2" :f_words="f_words"></word-freq-stat-shower>
       <key-word-extract-shower v-if="type == 3" :k_words="k_words"></key-word-extract-shower>
       <emotion-analysis-shower v-if="type == 4" :emotions="emotions"></emotion-analysis-shower>
@@ -40,8 +41,9 @@ export default {
   },
   data() {
     return {
-      commnets: [],
+      comments: [],
       progress: false,
+      show_download: false,
       emotions: [],
       k_words: [],
       f_words: [],
@@ -56,45 +58,99 @@ export default {
     handleClick() {
       this.comments = preHandleComments(this.textInput);
       this.progress = true;
+      this.show_download = false;
+      // 分词
       if (this.type == 1) {
         console.log(this.type);
+        this.axios.post('/comment_analysis/word2vector', this.comments, {
+          headers: {
+            'Content-Type':'application/json',
+            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+          }
+        }).then((response) => {
+          console.log(response.data);
+          this.s_words = response.data;
+          this.progress = false;
+          this.show_download = true;
+        }).catch((error) => {
+          console.log(error);
+        });
+      // 词频统计
       } else if (this.type == 2) {
-        this.axios.post('/word_freq_stat_service')
-          .then((response) => {
-            console.log(response);
-            this.f_words = response.data;
+        this.axios.post('/word_freq_stat_service', this.comments, {
+          headers: {
+            'Content-Type':'application/json',
+            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+          }
+        }).then((response) => {
+          console.log(response);
+          if (response.data.code == '200') {
+            this.f_words = response.data.words;
             this.progress = false;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+            this.show_download = true;
+          } else {
+            this.progress = false;
+            alert('failure');
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+      // 关键字提取
       } else if (this.type == 3) {
-        this.axios.post('/comment_analysis/extractKeyWord')
-          .then((response) => {
-            console.log(response.data);
-            this.k_words = response.data;
+        this.axios.post('/comment_analysis/extractKeyWord', this.comments, {
+          headers: {
+            'Content-Type':'application/json',
+            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+          }
+        }).then((response) => {
+          console.log(response.data);
+          if (response.data.code == '200') {
+            this.k_words = response.data.keywords;
             this.progress = false;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+            this.show_download = true;
+          } else {
+            this.progress = false;
+            alert('failure');
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+      // 情感分析
       } else if (this.type == 4) {
         this.axios.post('/comment_analysis/classification', this.comments, {
           headers: {
             'Content-Type':'application/json',
             // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
           }
-        })
-          .then((response) => {
-            console.log(response.data);
-            this.emotions = response.data;
-            this.progress = false;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        }).then((response) => {
+          console.log(response.data);
+          this.emotions = response.data;
+          this.progress = false;
+          this.show_download = true;
+        }).catch((error) => {
+          console.log(error);
+        });
+      // 评分
       }  else if (this.type == 5) {
         console.log(this.type);
+        this.axios.post('/comment_analysis/evaluate', this.comments, {
+          headers: {
+            'Content-Type':'application/json',
+            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+          }
+        }).then((response) => {
+          console.log(response.data);
+          if (response.data.code == '200') {
+            this.scores = response.data.comments;
+            this.progress = false;
+            this.show_download = true;
+          } else {
+            this.progress = false;
+            alert('failure');
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
       } else {
         console.log(this.type);
       }

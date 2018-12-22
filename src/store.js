@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     logined: false,
     host: {
-      root: 'http://192.168.1.119:5000',
+      root: 'http://192.168.100.31:5000',
       testRoot: 'http://192.168.1.131:8088'
     },
     user: {

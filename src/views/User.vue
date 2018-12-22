@@ -12,6 +12,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import UserInfoPlane from '@/components/UserInfoPlane.vue'
 export default {
   data() {
@@ -30,7 +31,19 @@ export default {
   },
   created() {
     // TODO: fetch user infomation
-    let user = { userName: 'test', email: 'test@email.com' };
+    var token = localStorage.getItem('token');
+    var username = localStorage.getItem('userName');
+    var userHeader = localStorage.getItem('userHeader');
+    var identity = localStorage.getItem('identity');
+    var email = localStorage.getItem('email');
+    var wechat = localStorage.getItem('wechat');
+    var profile = localStorage.getItem('profile');
+    var organization = localStorage.getItem('organization');
+    var position = localStorage.getItem('position');
+    var city = localStorage.getItem('city');
+    var birthdate = localStorage.getItem('birthdate');
+
+    let user = { userName: username, email: email };
     this.user = user;
   }
 }

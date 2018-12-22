@@ -26,6 +26,7 @@
 </template>
 
 <script>
+ // eslint-disable-next-line 
 import TokenParser from '@/services/TokenParser'
 export default {
   name: 'SignInPlane',
@@ -53,10 +54,18 @@ export default {
           console.log(response.data);
           var state = {
             token: response.data,
-            userName: response.data ? '666' : TokenParser.parseToken(response.data).sub,
+            // userName: response.data ? 'testuser' : TokenParser.parseToken(response.data).sub,
+            userName: data.username,
             userHeader: '',
-            email: '',
-            identity: 'non-user'
+            email: data.username + '@email.com',
+            identity: 'non-user',
+            profile: '',
+            phone: '12345678987',
+            wechat: '',
+            organization: '',
+            position: '',
+            city: '',
+            birthdate: ''
           };
           // TODO: 注册登录信息并重定向
           this.$store.commit('login', { 
@@ -64,7 +73,7 @@ export default {
             userName: state.userName, 
             userHeader: state.userHeader,
             identity: state.identity, 
-            email: state.email 
+            email: state.email
           });
           // TODO: 缓存token
           localStorage.setItem('token', state.token);
@@ -72,6 +81,13 @@ export default {
           localStorage.setItem('userHeader', state.userHeader);
           localStorage.setItem('identity', state.identity);
           localStorage.setItem('email', state.email);
+          localStorage.setItem('wechat', state.wechat);
+          localStorage.setItem('profile', state.profile);
+          localStorage.setItem('phone', state.phone);
+          localStorage.setItem('organization', state.organization);
+          localStorage.setItem('position', state.position);
+          localStorage.setItem('city', state.city);
+          localStorage.setItem('birthdate', state.birthdate);
           this.$router.push('/');
         }).catch((error) => {
           console.log(error);

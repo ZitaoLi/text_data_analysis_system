@@ -46,7 +46,7 @@ export default {
     user: Object
   },
   created() {
-    console.log('user-security-form created');
+    console.log(this.user);
     this.form.email = this.user.email;
     this.form.phone = this.user.phone;
   },

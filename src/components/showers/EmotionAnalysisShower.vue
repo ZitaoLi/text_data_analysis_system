@@ -37,9 +37,9 @@ export default {
     /* eslint-disable */
     test(row, column, cellValue, index) {
       if (cellValue == 0) {
-        return 'positive';
+        return '积极';
       } else {
-        return 'negative';
+        return '消极';
       }
     }
   }

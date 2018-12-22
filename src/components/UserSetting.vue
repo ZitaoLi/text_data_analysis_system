@@ -12,6 +12,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import UserInfoForm from '@/components/UserInfoForm.vue'
 import UserSecurityForm from '@/components/UserSecurityForm.vue'
 export default {
@@ -33,22 +34,30 @@ export default {
   },
   created() {
     // TODO: fetch data
-    console.log('user-setting created');
+    var userName = localStorage.getItem('userName');
+    var userHeader = localStorage.getItem('userHeader');
+    var identity = localStorage.getItem('identity');
+    var email = localStorage.getItem('email');
+    var wechat = localStorage.getItem('wechat');
+    var profile = localStorage.getItem('profile');
+    var phone = localStorage.getItem('phone');
+    var organization = localStorage.getItem('organization');
+    var position = localStorage.getItem('position');
+    var city = localStorage.getItem('city');
+    var birthdate = localStorage.getItem('birthdate');
+
     let user = { 
-      userName: 'test', 
-      email: 'test@email.com',
-      phone: '123456789',
-      profile:'this is me',
-      organization: 'scut',
-      position: 'student',
-      city: 'Guangzhou',
-      birthdate: '1995-01-01'
+      userName: userName ? userName : '', 
+      email: email ? email : '',
+      phone: phone ? phone : '',
+      profile: profile ? profile : '',
+      organization: organization ? organization : '',
+      position: position ? position : '',
+      city: city ? city : '',
+      birthdate: birthdate ? birthdate : ''
     };
+    console.log(user);
     this.user = user;
-    // setTimeout(() => {
-    //   console.log('user-setting timeout');
-    //   this.user = { userName: 'test2', email: 'test@email.com' };
-    // }, 1000);
   }
 }
 </script>

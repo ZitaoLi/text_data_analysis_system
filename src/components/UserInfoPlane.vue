@@ -7,11 +7,11 @@
       <br>
       <el-menu default-active="user-info" class="el-menu-vertical-demo" style="border-right-width: 0px;">
         <el-menu-item index="user-info" @click="routeTo('/user-info')" ref="userInfo">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-tickets"></i>
           <span slot="title">账户信息</span>
         </el-menu-item>
         <el-menu-item index="user-setting" @click="routeTo('/user-setting')" ref="userSetting">
-          <i class="el-icon-document"></i>
+          <i class="el-icon-edit-outline"></i>
           <span slot="title">个人设置</span>
         </el-menu-item>
       </el-menu>
