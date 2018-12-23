@@ -3,7 +3,10 @@
     <el-container>
       <el-header>
         <el-menu :default-active="activeIndex" :router="true" class="el-menu-demo" mode="horizontal" @select="handleSelect" ref="nav">
-          <el-menu-item index="">TEXT DATA Cloud</el-menu-item>
+          <el-menu-item index="">
+            <img class="logo images" src="img/BB-LOGO.jpg" alt="logo"/>
+            影评数据分析系统
+          </el-menu-item>
           <el-menu-item index="/">处理中心</el-menu-item>
           <el-submenu index="" style="float:right" v-if="logined">
             <template slot="title">
@@ -59,6 +62,11 @@
 .user-header-circle {
   width: 32px;
   height: 32px;
+  border-radius: 50%;
+}
+.logo {
+  /* width: 50px; */
+  height: 50px;
   border-radius: 50%;
 }
 </style>

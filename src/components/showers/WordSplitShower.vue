@@ -28,7 +28,6 @@ export default {
   }
 }
 function wordFilter(entity) {
-  if (entity.code != '200') return false;
   switch (entity.pos) {
     case 'n': return {pos: 'n', word: entity.word, b_color: '#67C23A'};
     case 'nr': return {pos: 'nr', word: entity.word, b_color: '#539d2f'};

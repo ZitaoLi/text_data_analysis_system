@@ -69,9 +69,14 @@ export default {
           }
         }).then((response) => {
           console.log(response.data);
-          this.s_words = response.data;
-          this.progress = false;
-          this.show_download = true;
+          if (response.data.code == '200') {
+            this.s_words = response.data.words;
+            this.progress = false;
+            this.show_download = true;
+          } else {
+            this.progress = false;
+            alert('failure');
+          }
         }).catch((error) => {
           console.log(error);
         });

@@ -74,6 +74,11 @@ export default {
   props: {
     scheme: Object
   },
+  methods: {
+    handleBuy(index, row) {
+      console.log(index, row);
+    }
+  }
   // watch: {
   //   scheme(val) {
   //     console.log(val);
