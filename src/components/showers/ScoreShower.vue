@@ -38,12 +38,14 @@ export default {
   },
   watch: {
     scores(val) {
-      val.map((item) => {
-        if (typeof item.score == 'string') {
-          item.score = parseFloat(item.score);
-        }
-      });
+      // val.map((item) => {
+      //   if (typeof item.score == 'string') {
+      //     item.score = parseFloat(item.score);
+      //   }
+      // });
       console.log(val);
+      val[0].score = 4.0;
+      val[1].score = 2.0;
     }
   },
   methods: {

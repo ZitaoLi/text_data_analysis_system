@@ -62,10 +62,10 @@ export default {
       // 分词
       if (this.type == 1) {
         console.log(this.type);
-        this.axios.post('/comment_analysis/word2vector', this.comments, {
+        this.axios.post('/comment_analysis/text2words', this.comments, {
           headers: {
             'Content-Type':'application/json',
-            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+            'Authorization': 'Bearer ' + this.$store.getters.user.token,
           }
         }).then((response) => {
           console.log(response.data);
@@ -82,10 +82,10 @@ export default {
         });
       // 词频统计
       } else if (this.type == 2) {
-        this.axios.post('/word_freq_stat_service', this.comments, {
+        this.axios.post('/comment_analysis/keywordsFrequencies', this.comments, {
           headers: {
             'Content-Type':'application/json',
-            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+            'Authorization': 'Bearer ' + this.$store.getters.user.token,
           }
         }).then((response) => {
           console.log(response);
@@ -102,10 +102,10 @@ export default {
         });
       // 关键字提取
       } else if (this.type == 3) {
-        this.axios.post('/comment_analysis/extractKeyWord', this.comments, {
+        this.axios.post('/comment_analysis/extractKeywords', this.comments, {
           headers: {
             'Content-Type':'application/json',
-            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+            'Authorization': 'Bearer ' + this.$store.getters.user.token,
           }
         }).then((response) => {
           console.log(response.data);
@@ -125,7 +125,7 @@ export default {
         this.axios.post('/comment_analysis/classification', this.comments, {
           headers: {
             'Content-Type':'application/json',
-            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+            'Authorization': 'Bearer ' + this.$store.getters.user.token,
           }
         }).then((response) => {
           console.log(response.data);
@@ -141,14 +141,19 @@ export default {
         this.axios.post('/comment_analysis/evaluate', this.comments, {
           headers: {
             'Content-Type':'application/json',
-            // 'Authorization': 'Bearer ' + this.$store.getters.user.token,
+            'Authorization': 'Bearer ' + this.$store.getters.user.token,
           }
         }).then((response) => {
           console.log(response.data);
           if (response.data.code == '200') {
-            this.scores = response.data.comments;
-            this.progress = false;
-            this.show_download = true;
+            setTimeout(() => {
+              this.scores = response.data.comments;
+              this.progress = false;
+              this.show_download = true;
+            }, 2000);
+            // this.scores = response.data.comments;
+            // this.progress = false;
+            // this.show_download = true;
           } else {
             this.progress = false;
             alert('failure');

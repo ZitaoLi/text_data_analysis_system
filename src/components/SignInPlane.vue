@@ -14,6 +14,7 @@
           <el-input
             placeholder="请输入密码"
             v-model.trim="form.password"
+            type="password"
             clearable>
           </el-input>
         </el-form-item>
@@ -33,8 +34,8 @@ export default {
   data() {
     return {
       form: {
-        userName: 'user',
-        password: 'vipuser',
+        userName: '',
+        password: '',
       }
     }
   },
@@ -60,7 +61,7 @@ export default {
             email: data.username + '@email.com',
             identity: 'non-user',
             profile: '',
-            phone: '12345678987',
+            phone: '',
             wechat: '',
             organization: '',
             position: '',

@@ -11,7 +11,7 @@
                 <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple>
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">只能上传txt文件</div>
+                <div class="el-upload__tip" slot="tip">只能上传txt文件,不同的影评之间使用换行符分隔</div>
               </el-upload>
               </el-tab-pane>
               <el-tab-pane class="upload-demo" label="文本上传" index="2">
@@ -47,7 +47,7 @@ export default {
     return {
       value4: 2,
       text: '',
-      textInput: '真好看\n真难看\n炸了炸了\n令人窒息的操作\n嘤嘤嘤',
+      textInput: '',
       title: '影评数据分析系统',
       handleType: '',
       functionsVector: [ 0, 0, 1, 1, 1 ],

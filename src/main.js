@@ -17,8 +17,8 @@ Vue.use(VueAxios, axios);
 
 Vue.prototype.$qs = qs;
 
-axios.defaults.baseURL = store.getters.host.root; // domain name
-// axios.defaults.baseURL = store.getters.host.testRoot; // test domain name
+// axios.defaults.baseURL = store.getters.host.root; // domain name
+axios.defaults.baseURL = store.getters.host.testRoot; // test domain name
 
 new Vue({
   router,

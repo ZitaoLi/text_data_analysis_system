@@ -26,17 +26,15 @@ export default {
     emotions: Array
   },
   methods: {
-    /* eslint-disable */
     tableRowClassName({row, rowIndex}) {
-      if (row.kind === 0) {
+      if (row.kind === 1) {
         return 'positive-row';
       } else {
         return 'nagetive-row';
       }
     },
-    /* eslint-disable */
     test(row, column, cellValue, index) {
-      if (cellValue == 0) {
+      if (cellValue == 1) {
         return '积极';
       } else {
         return '消极';

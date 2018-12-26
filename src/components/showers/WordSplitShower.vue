@@ -1,12 +1,13 @@
 <template>
   <div class="word-split-shower">
-    <div class="slice" v-for="word in words" :key="word.word" :style="{backgroundColor: word.b_color}">
+    <div class="slice" v-for="(word, index) in words" :key="index" :style="{backgroundColor: word.b_color}">
       {{ word.pos }}. {{ word.word }}
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'WordSplitShower',
   data() {
